@@ -1,0 +1,23 @@
+/** lcm通道信息
+- url: "udpm://239.255.76.67:7671?ttl=255"
+- channel: "robot_control_cmd"
+- frequncy: 2~500HZ，超时500ms触发趴下保护
+*/
+
+/** lcm数据结构 **/
+struct robot_control_cmd_lcmt {
+    int8_t   mode;
+    int8_t   gait_id;
+    int8_t   contact;           // Whether the four feet touch the ground
+    int8_t   life_count;        // Life count, command takes effect when count incremented
+    float    vel_des[ 3 ];      // x y(1.6) yaw speed(2.5)  m/s 
+    float    rpy_des[ 3 ];      // roll pitch yaw(0.45)  rad
+    float    pos_des[ 3 ];      // x y z(0.1-0.32)  m
+    float    acc_des[ 6 ];      // acc for jump m^2/s
+    float    ctrl_point[ 3 ];   // pose ctrl point  m
+    float    foot_pose[ 6 ];    // front/back foot pose x,y,z  m
+    float    step_height[ 2 ];  // step height when trot 0~0.08m
+    int32_t  value;             // bit0: 在舞蹈模式，use_mpc_traj 是否使用MPC轨迹
+                                // bit1: 0表示内八节能步态   1表示垂直步态
+    int32_t  duration;          // Time of command execution
+}
